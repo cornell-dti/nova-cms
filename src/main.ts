@@ -3,7 +3,11 @@ import BootstrapVue from "bootstrap-vue";
 import App from "./App.vue";
 import router from "./router";
 
+import Sidebar from "./components/Sidebar.vue";
+
 Vue.use(BootstrapVue);
+
+Vue.component('Sidebar', Sidebar);
 
 Vue.config.productionTip = false;
 
