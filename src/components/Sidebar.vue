@@ -19,6 +19,9 @@
         a{
             color:white;
             text-decoration:none;
+            &.router-link-exact-active {
+            font-weight:bold;
+    }
         }
     }
 </style>
