@@ -22,6 +22,26 @@ let data = {
     "Shout",
     "Rescuer",
     "Website"
+  ],
+  edits: [
+    {
+      name: "LinkedIn Profile",
+      date: "3/24/19",
+      content: "https://www.linkedin.com/in/evan-welsh-291577141/",
+      status: "Pending"
+    },
+    {
+      name: "Current Subteam",
+      date: "3/20/19",
+      content: "Flux",
+      status: "Rejected"
+    },
+    {
+      name: "First & Last Name",
+      date: "3/14/19",
+      content: "Evan Welsh",
+      status: "Approved"
+    }
   ]
 };
 
