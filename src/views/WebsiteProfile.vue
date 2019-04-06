@@ -226,7 +226,6 @@
   color: #747474;
   margin-left: 20px;
   display: inline;
-  margin-bottom: 10px;
 }
 
 .profile-textarea {
