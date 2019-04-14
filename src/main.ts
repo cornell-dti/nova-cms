@@ -8,7 +8,7 @@ import Sidebar from "./components/Sidebar.vue";
 
 Vue.use(BootstrapVue);
 
-Vue.component('Sidebar', Sidebar);
+Vue.component("Sidebar", Sidebar);
 
 Vue.config.productionTip = false;
 
