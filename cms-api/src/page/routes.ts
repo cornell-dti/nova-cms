@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as HttpStatus from 'http-status-codes';
-import {Pages} from '../db'
+import {PageDB} from './db'
 
 export default function routes() {
     const router = express.Router();
@@ -14,13 +14,14 @@ export default function routes() {
     (req, res) => {
         let id : string = req.params.id;
 
-        let page = Pages[id];
+        let pageDB = new PageDB();
 
-        if (page) {
+        pageDB.getOne('id', id).then(page => {
             res.status(HttpStatus.OK).json(page);
-        } else {
-            res.status(HttpStatus.BAD_REQUEST).json({ error: 'Specified page ID does not exist.'});
-        }
+        })
+        .catch(error => {
+            res.status(HttpStatus.BAD_REQUEST).json({ error });
+        });
     });
 
     return router;
