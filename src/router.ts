@@ -20,6 +20,12 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/WebsiteProfile.vue")
     },
     {
+      path: "/admin",
+      name: "admin",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/Admin.vue")
+    },
+    {
       path: "/edits",
       name: "edits",
       component: () =>

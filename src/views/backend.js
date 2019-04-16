@@ -42,6 +42,64 @@ let data = {
       content: "Evan Welsh",
       status: "Approved"
     }
+  ],
+  members: [
+    {
+      name: "LinkedIn Profile",
+      email: "3/24/19",
+      type: "Admin"
+    },
+    {
+      name: "LinkedIn Profile",
+      email: "3/24/19",
+      type: "Admin"
+    },
+    {
+      name: "LinkedIn Profile",
+      email: "3/24/19",
+      type: "Admin"
+    }
+  ],
+  products: [
+    {
+      name: "Shout",
+      color: "#C4C4C4"
+    },
+    {
+      name: "CUE",
+      color: "#D187FF"
+    },
+    {
+      name: "Samwise",
+      color: "#C4C4C4"
+    },
+    {
+      name: "Queue Me In",
+      color: "#9BD5FF"
+    },
+    {
+      name: "Flux",
+      color: "#F5EE4C"
+    },
+    {
+      name: "Course Reviews",
+      color: "#C4C4C4"
+    },
+    {
+      name: "Research Connect",
+      color: "#FE8484"
+    }
+  ],
+  pages: [
+    {
+      name: "Sponsorship"
+    },
+    {
+      name: "Initatives"
+    },
+    {
+      name: "Team"
+    }
   ]
 };
 
