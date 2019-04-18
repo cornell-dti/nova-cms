@@ -45,19 +45,41 @@ let data = {
   ],
   members: [
     {
-      name: "LinkedIn Profile",
+      name: "Evan Welsh",
       email: "3/24/19",
-      type: "Admin"
+      type: "Admin",
+      edits: [
+        {
+          name: "LinkedIn Profile",
+          date: "3/24/19",
+          content: "https://www.linkedin.com/in/evan-welsh-291577141/",
+          status: "Pending"
+        },
+        {
+          name: "Current Subteam",
+          date: "3/20/19",
+          content: "Flux",
+          status: "Rejected"
+        },
+        {
+          name: "First & Last Name",
+          date: "3/14/19",
+          content: "Evan Welsh",
+          status: "Approved"
+        }
+      ]
     },
     {
       name: "LinkedIn Profile",
       email: "3/24/19",
-      type: "Admin"
+      type: "Admin",
+      edits: []
     },
     {
       name: "LinkedIn Profile",
       email: "3/24/19",
-      type: "Admin"
+      type: "Admin",
+      edits: []
     }
   ],
   products: [
@@ -103,8 +125,28 @@ let data = {
   ]
 };
 
-function getProfileFormData(field) {
+export function getProfileFormData(field) {
   return data[field];
 }
 
-export default getProfileFormData;
+export function getEditsFromName(name) {
+  data.members.forEach(function(member) {
+    console.log(member);
+    if (member.name === name) {
+      return member.edits;
+    }
+  });
+}
+
+export function getAllEdits() {
+  list = [];
+
+  data.members.forEach(function(member) {
+    member.edits.forEach(function(edit) {
+      edit[name] = member.name;
+      list.push(edit);
+    });
+  });
+
+  return list;
+}

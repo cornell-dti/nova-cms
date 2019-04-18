@@ -92,9 +92,10 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import getProfileFormData from "@/views/backend";
+import * as backend from "@/views/backend";
 
 export default class WebsiteProfile extends Vue {
-  getProfileFormData: Function = getProfileFormData;
+  getProfileFormData: Function = backend.getProfileFormData;
+  getEditsFromName: Function = backend.getEditsFromName;
 }
 </script>

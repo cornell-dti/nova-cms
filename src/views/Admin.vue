@@ -90,7 +90,7 @@
         <div class="admin-dropdown-arrow"></div>
       </div>
       <div class="admin-dropdown-content">
-                <div class="admin-dropdown-main admin-buttons">
+        <div class="admin-dropdown-main admin-buttons">
           <button
             class="page-button"
             v-for="(page, index) in getProfileFormData('pages')"
@@ -106,7 +106,22 @@
         <div class="admin-dropdown-arrow"></div>
       </div>
       <div class="admin-dropdown-content">
-        <div class="admin-dropdown-main"></div>
+        <div class="admin-dropdown-main">
+          <table class="admin-table">
+            <tr class="row">
+              <th class="admin-name col admin-table-heading">Category</th>
+              <th class="admin-content col admin-table-heading">admin</th>
+              <th class="admin-date col admin-table-heading">Updated</th>
+              <th class="admin-status col admin-table-heading">Status</th>
+            </tr>
+            <tr class="row" v-for="(field, index) in getProfileFormData('edits')" :key="index">
+              <td class="admin-name col">{{field.name}}</td>
+              <td class="admin-content col">{{field.content}}</td>
+              <td class="admin-date col">{{field.date}}</td>
+              <td class="admin-status col" :class="field.status.toLowerCase()">{{field.status}}</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -297,6 +312,7 @@ input:checked + .slider:before {
 
 .page-button {
   color: #000000;
+  background-color: #c4c4c4;
   padding: 8px 21px 8px 21px;
   border-radius: 19px;
   margin-right: 20px;
@@ -309,10 +325,10 @@ input:checked + .slider:before {
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import getProfileFormData from "@/views/backend";
+import * as backend from "@/views/backend";
 // import MemberProfileModal from "@/views/MemberProfileModal.vue";
 
 export default class WebsiteProfile extends Vue {
-  getProfileFormData: Function = getProfileFormData;
+  getProfileFormData: Function = backend.getProfileFormData;
 }
 </script>
