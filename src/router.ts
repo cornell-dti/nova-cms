@@ -32,6 +32,12 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/Edits.vue")
     },
     {
+      path: "/project",
+      name: "project",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/ProjectPage.vue")
+    },
+    {
       path: "/about",
       name: "about",
       // route level code-splitting
