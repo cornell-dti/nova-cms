@@ -5,6 +5,7 @@ import session from 'express-session';
 import * as HttpStatus from 'http-status-codes';
 
 import globalRoutes from './global/routes';
+import loginRoutes from './login/routes';
 import pageRoutes from './page/routes';
 import teamMembersRoutes from './team-members/routes';
 import teamMemberRoutes from './team-member/routes';
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use(globalRoutes());
+app.use(loginRoutes());
 app.use(pageRoutes());
 app.use(teamMembersRoutes());
 app.use(teamMemberRoutes());
