@@ -7,7 +7,7 @@ export default function routes() {
 
     router.get('/page',
     (req, res) => {
-        res.status(HttpStatus.BAD_REQUEST).json({ error: "Missing ID parameter." })
+        res.status(HttpStatus.BAD_REQUEST).json({ error: "Missing ID parameter." });
     });
 
     router.get('/page/:id',

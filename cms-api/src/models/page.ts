@@ -1,32 +1,15 @@
 import { JSONParsable, JSONObject, JSONEnum, JSONArray, JSONProperty } from '../lib/json';
-
-export enum ResourceType {
-    TEXT,
-    LINK,
-    IMAGE,
-    CONTAINER
-}
-
-export type LinkDescription = { text: string, link: string };
-export type ImageDescription = { cap: string, imgLink: string };
-
-function is_link_description(x): x is LinkDescription {
-    return true;
-}
-
-function is_img_description(x): x is ImageDescription {
-    return true;
-}
+import * as ResourceTemplate from './resource-templates';
 
 @JSONParsable({ key: 'string' })
 export class PageResource extends JSONObject {
     key: string;
-    @JSONEnum(ResourceType)
-    type: ResourceType
+    @JSONEnum(ResourceTemplate.ResourceType)
+    type: ResourceTemplate.ResourceType
     @JSONProperty({
         type: obj => true,
         parse: (obj) => {
-            if (typeof obj === 'string' || is_link_description(obj) || is_img_description(obj)) {
+            if (typeof obj === 'string' || ResourceTemplate.is_link_description(obj) || ResourceTemplate.is_img_description(obj)) {
                 return obj;
             } else if (Array.isArray(obj)) {
                 let pageResources: PageResource[] = [];
@@ -37,7 +20,7 @@ export class PageResource extends JSONObject {
             }
         }
     })
-    value: string | LinkDescription | ImageDescription | PageResource[]
+    value: string | ResourceTemplate.LinkDescription | ResourceTemplate.ImageDescription | PageResource[]
 }
 
 @JSONParsable({ id: 'string' })
