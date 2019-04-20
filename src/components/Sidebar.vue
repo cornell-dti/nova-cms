@@ -5,9 +5,8 @@
     </b-navbar-brand>
     <h1>Evan Welsh</h1>
     <b-navbar-nav class="menu-nav flex-column">
-        <b-nav-item to="/">Home</b-nav-item>
-        <b-nav-item to="/about">About</b-nav-item>
-        <b-nav-item to="/profile">Edit Profile</b-nav-item>
+        <b-nav-item to="/"><img class="sidebar-icon" src="../assets/updates.png"/>Home</b-nav-item>
+        <b-nav-item to="/profile"><img class="sidebar-icon" src="../assets/profile.png"/>Edit Profile</b-nav-item>
     </b-navbar-nav>
 </b-navbar>
 </template>
@@ -16,10 +15,15 @@
 </script>
 
 <style lang="scss">
+.menu-nav{
+    margin-top:1.5rem;
+    color:white;
+}
+
 .sidebar .menu-nav .nav-link{
     color:white;
+    
     &:hover{
-        text-decoration:none;
         color:white;
     }
 }
@@ -30,12 +34,13 @@ h1{
 .nav-item{
     text-align:left;
     list-style:none;
+    width:100%;
     a{
         color:white;
         text-decoration:none;
         &.router-link-exact-active {
-        font-weight:bold;
-        background-color:#FF324A;
+            font-weight:bold;
+            background-color:#FF324A;
 }
     }
 }
@@ -49,5 +54,9 @@ h1{
     margin-top:10%;
     border-radius:50%;
     height:6rem;
+}
+.sidebar-icon{
+    height:1.25rem;
+    margin-right:.625rem;
 }
 </style>
