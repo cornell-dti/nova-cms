@@ -1,10 +1,10 @@
 <template>
-<b-navbar class="sidebar">
+<b-navbar class="sidebar flex-column">
     <b-navbar-brand>
         <b-img class="sidebar-profile" src="https://www.cornelldti.org/static/members/ew469.jpg"/>
     </b-navbar-brand>
     <h1>Evan Welsh</h1>
-    <b-navbar-nav class="nav-item">
+    <b-navbar-nav class="menu-nav flex-column">
         <b-nav-item to="/">Home</b-nav-item>
         <b-nav-item to="/about">About</b-nav-item>
         <b-nav-item to="/profile">Edit Profile</b-nav-item>
@@ -15,7 +15,15 @@
 <script>
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.sidebar .menu-nav .nav-link{
+    color:white;
+    &:hover{
+        text-decoration:none;
+        color:white;
+    }
+}
+
 h1{
     font-size:1.5rem;
 }
@@ -27,13 +35,15 @@ h1{
         text-decoration:none;
         &.router-link-exact-active {
         font-weight:bold;
+        background-color:#FF324A;
 }
     }
 }
 .sidebar{
     background-color:#373737;
     color:white;
-    flex:3;
+    min-width:17.5%;
+    max-width:30%;
 }
 .sidebar-profile{
     margin-top:10%;

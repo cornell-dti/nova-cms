@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="flex-column">
+  <div id="app">
     <sidebar/>
     <router-view />
   </div>
@@ -11,19 +11,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-.flex-column{
   display:flex;
-  -ms-flex-direction: column;
+  width:100%;
+  align-items:stretch;
 }
 </style>
