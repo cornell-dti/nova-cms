@@ -42,8 +42,8 @@ h1{
 .sidebar{
     background-color:#373737;
     color:white;
-    min-width:17.5%;
-    max-width:30%;
+    min-width:15rem;
+    max-width:20rem;
 }
 .sidebar-profile{
     margin-top:10%;

@@ -7,7 +7,8 @@
 
 <style lang="scss">
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  @import url('https://fonts.googleapis.com/css?family=Raleway:200,400,500,600|Space+Mono');
+  font-family: 'Raleway', 'sans-serif';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
