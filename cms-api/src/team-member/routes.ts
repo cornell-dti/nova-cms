@@ -1,9 +1,6 @@
 import * as express from 'express';
 import * as HttpStatus from 'http-status-codes';
-import {TeamMembersList} from '../db'
 import {TeamMemberDB} from './db';
-import asyncify from '../lib/asyncify';
-import { TeamMemberDocument } from '../models/team-member';
 
 export default function routes() {
     const router = express.Router();

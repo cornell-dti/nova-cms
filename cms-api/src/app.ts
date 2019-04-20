@@ -1,5 +1,7 @@
 // lib/app.ts
 import express = require('express');
+import bodyParser from 'body-parser';
+import session from 'express-session';
 import * as HttpStatus from 'http-status-codes';
 
 import globalRoutes from './global/routes';
@@ -14,6 +16,14 @@ env();
 
 // Create a new express application instance
 const app: express.Application = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  secret: process.env.secret ? process.env.secret : 'keyboard cat 12345',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set to TRUE for production
+}))
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
