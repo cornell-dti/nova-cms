@@ -226,7 +226,6 @@
   color: #747474;
   margin-left: 20px;
   display: inline;
-  margin-bottom: 10px;
 }
 
 .profile-textarea {
@@ -298,11 +297,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import getProfileFormData from "@/views/backend";
+import * as backend from "@/views/backend";
 // import MemberProfileModal from "@/views/MemberProfileModal.vue";
 
 export default class WebsiteProfile extends Vue {
-  getProfileFormData: Function = getProfileFormData;
+  getProfileFormData: Function = backend.getProfileFormData;
   // MemberProfileModal = MemberProfileModal;
   months: Array<String> = [
     "January",
@@ -383,13 +382,14 @@ export default class WebsiteProfile extends Vue {
   ];
 
   countries: Array<String> = [
+    "United States",
     "Afghanistan",
     "Albania",
     "Algeria",
     "Andorra",
     "Angola",
     "Anguilla",
-    "Antigua &amp; Barbuda",
+    "Antigua & Barbuda",
     "Argentina",
     "Armenia",
     "Aruba",
@@ -407,7 +407,7 @@ export default class WebsiteProfile extends Vue {
     "Bermuda",
     "Bhutan",
     "Bolivia",
-    "Bosnia &amp; Herzegovina",
+    "Bosnia & Herzegovina",
     "Botswana",
     "Brazil",
     "British Virgin Islands",
@@ -539,7 +539,7 @@ export default class WebsiteProfile extends Vue {
     "Romania",
     "Russia",
     "Rwanda",
-    "Saint Pierre &amp; Miquelon",
+    "Saint Pierre & Miquelon",
     "Samoa",
     "San Marino",
     "Satellite",
@@ -555,7 +555,7 @@ export default class WebsiteProfile extends Vue {
     "South Korea",
     "Spain",
     "Sri Lanka",
-    "St Kitts &amp; Nevis",
+    "St Kitts & Nevis",
     "St Lucia",
     "St Vincent",
     "St. Lucia",
@@ -572,16 +572,15 @@ export default class WebsiteProfile extends Vue {
     "Timor L'Este",
     "Togo",
     "Tonga",
-    "Trinidad &amp; Tobago",
+    "Trinidad & Tobago",
     "Tunisia",
     "Turkey",
     "Turkmenistan",
-    "Turks &amp; Caicos",
+    "Turks & Caicos",
     "Uganda",
     "Ukraine",
     "United Arab Emirates",
     "United Kingdom",
-    "United States",
     "United States Minor Outlying Islands",
     "Uruguay",
     "Uzbekistan",
