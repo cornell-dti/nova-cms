@@ -38,6 +38,7 @@ h1{
     a{
         color:white;
         text-decoration:none;
+        font-size:.875rem;
         &.router-link-exact-active {
             font-weight:bold;
             background-color:#FF324A;
