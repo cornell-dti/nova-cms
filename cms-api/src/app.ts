@@ -3,6 +3,7 @@ import express = require('express');
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import * as HttpStatus from 'http-status-codes';
+import * as firebase from 'firebase';
 
 import globalRoutes from './global/routes';
 import loginRoutes from './login/routes';
@@ -14,6 +15,14 @@ import projectRoutes from './project/routes';
 import env from './env';
 
 env();
+if (firebase.apps.length === 0)
+  firebase.initializeApp({
+    apiKey: process.env.apiKey,
+    authDomain: `${process.env.project_id}.firebaseapp.com`,
+    databaseURL: `https://${process.env.project_id}.firebaseio.com`,
+    projectId: process.env.project_id,
+  });
+else firebase.app();
 
 // Create a new express application instance
 const app: express.Application = express();

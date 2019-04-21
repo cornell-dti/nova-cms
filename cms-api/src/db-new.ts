@@ -69,4 +69,17 @@ export abstract class ElementDB<T extends JSONObject> {
                 .catch(reject);
         });
     }
+
+    editOne(key: string, val: string, editTo) : Promise<T> {
+        return new Promise<T>((resolve, reject) => {
+            this.getCollectionRef().where(key, '==', val).limit(1).get()
+                .then(qSnap => {
+                    if (qSnap.empty) return reject(`No element with ${key}=${val} found.`);
+                    let dataRef = qSnap.docs[0].ref;
+                    dataRef.update(editTo).then(_ => {
+                        this.getOne(key, val).then(resolve).catch(reject);
+                    }).catch(reject);
+                }).catch(reject);
+        });
+    }
 }
