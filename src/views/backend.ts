@@ -125,11 +125,11 @@ let data = {
   ]
 };
 
-export function getProfileFormData(field) {
-  return data[field];
+export function getProfileFormData(field: any) {
+  return (data as any) [field];
 }
 
-export function getEditsFromName(name) {
+export function getEditsFromName(name:  any) {
   data.members.forEach(function(member) {
     console.log(member);
     if (member.name === name) {
@@ -139,14 +139,17 @@ export function getEditsFromName(name) {
 }
 
 export function getAllEdits() {
+   // @ts-ignore
   list = [];
 
   data.members.forEach(function(member) {
     member.edits.forEach(function(edit) {
+       // @ts-ignore
       edit[name] = member.name;
+       // @ts-ignore
       list.push(edit);
     });
   });
-
+ // @ts-ignore
   return list;
 }
