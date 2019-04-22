@@ -14,9 +14,6 @@
 </b-navbar>
 </template>
 
-<script>
-</script>
-
 <style lang="scss">
 .menu-nav{
     margin-top:1.5rem;

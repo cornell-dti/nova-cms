@@ -20,7 +20,7 @@
       <div class="project-section">
         <label for="do" class="project-label">{{`What we do`}}</label>
         <input type="text" name="do" class="project-input">
-        
+
         <div class="project-number" v-for="(feature, index) in [0, 1, 2]" :key="index">
           <label for="featureTitle" class="project-label">{{`Feature #`}}{{index + 1}}{{` Title`}}</label>
           <input type="text" name="featureTitle1" class="project-input">
@@ -143,3 +143,10 @@
   }
 }
 </style>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class ProjectPage extends Vue {}
+</script>

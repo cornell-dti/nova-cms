@@ -326,9 +326,11 @@ input:checked + .slider:before {
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import * as backend from "@/views/backend";
-// import MemberProfileModal from "@/views/MemberProfileModal.vue";
 
-export default class WebsiteProfile extends Vue {
-  getProfileFormData: Function = backend.getProfileFormData;
+@Component
+export default class Admin extends Vue {
+  getProfileFormData(field: any) {
+    return backend.getProfileFormData(field);
+  }
 }
 </script>

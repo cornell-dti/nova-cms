@@ -300,9 +300,13 @@ import { Component, Vue } from "vue-property-decorator";
 import * as backend from "@/views/backend";
 // import MemberProfileModal from "@/views/MemberProfileModal.vue";
 
+@Component
 export default class WebsiteProfile extends Vue {
-  getProfileFormData: Function = backend.getProfileFormData;
   // MemberProfileModal = MemberProfileModal;
+  getProfileFormData(field: any) {
+    return backend.getProfileFormData(field);
+  }
+
   months: Array<String> = [
     "January",
     "February",

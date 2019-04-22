@@ -138,18 +138,16 @@ export function getEditsFromName(name:  any) {
   });
 }
 
-export function getAllEdits() {
-   // @ts-ignore
-  list = [];
+// export function getAllEdits() {
+//   let list: [];
 
-  data.members.forEach(function(member) {
-    member.edits.forEach(function(edit) {
-       // @ts-ignore
-      edit[name] = member.name;
-       // @ts-ignore
-      list.push(edit);
-    });
-  });
- // @ts-ignore
-  return list;
-}
+//   data.members.forEach(function(member) {
+//     member.edits.forEach(function(edit) {
+//       edit[name] = member.name;
+//        // @ts-ignore
+//       list.push(edit);
+//     });
+//   });
+//  // @ts-ignore
+//   return list;
+// }

@@ -1,6 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import Admin from "./views/Admin.vue";
+import WebsiteProfile from "./views/WebsiteProfile.vue";
+import Edits from "./views/Edits.vue";
+import ProjectPage from "./views/ProjectPage.vue";
 
 Vue.use(Router);
 
@@ -16,25 +20,21 @@ export default new Router({
     {
       path: "/profile",
       name: "profile",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/WebsiteProfile.vue")
+      component: WebsiteProfile
     },
     {
       path: "/admin",
       name: "admin",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Admin.vue")
+      component: Admin
     },
     {
       path: "/edits",
       name: "edits",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Edits.vue")
+      component: Edits
     },
     {
       path: "/project",
       name: "project",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/ProjectPage.vue")
+      component: ProjectPage
     }]
 });
