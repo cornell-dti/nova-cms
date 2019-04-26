@@ -12,42 +12,39 @@ import GAuth from "vue-google-oauth2";
 
 const gauthOption = {
   clientId:
-    "399535557982-gqdln1sugjp69fr9ocsjv692qr76g4aj.apps.googleusercontent.com"
+    "336331681014-5chk8fh6ireimubt8kir7n23d4395h2h.apps.googleusercontent.com"
 };
 
 Vue.use(GAuth, gauthOption);
 
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
+
+Vue.http.options.emulateJSON = true
+const http=Vue.http
+
 //export default class Home extends Vue {}
 export default {
   methods: {
-    getAuth() {
-      this.$gAuth
-        .getAuthCode()
-        .then(authCode => {
-          // On success
-          return this.$http.post("http://your-backend-server.com/auth/google", {
-            code: authCode,
-            redirect_uri: "postmessage"
-          });
-        })
-        .then(response => {
-          // And then
-        })
-        .catch(error => {
-          console.log(error);
-          // On fail do something
-        });
-    },
     login() {
-      this.$gAuth
+      (this as any).$gAuth
         .signIn()
         .then(GoogleUser => {
-          // On success do something, refer to https://developers.google.com/api-client-library/javascript/reference/referencedocs#googleusergetid
           console.log("user", GoogleUser);
-          // GoogleUser.getId() : Get the user's unique ID string.
+          //console.log(GoogleUser.getId()); //: Get the user's unique ID string.
+          console.log(GoogleUser.getAuthResponse().id_token);
+
+          // console.log(http);
+          // console.log(Vue.http);
+          // console.log(this.$http);
+          //  console.log((this as any).$http);
+
+          return http.post("http://localhost:3000/login", {
+            id_token: GoogleUser.getAuthResponse().id_token,
+          });
           // GoogleUser.getBasicProfile() : Get the user's basic profile information.
           // GoogleUser.getAuthResponse() : Get the response object from the user's auth session. access_token and so on
-          this.isSignIn = this.$gAuth.isAuthorized;
+          (this as any).isSignIn = (this as any).$gAuth.isAuthorized;
         })
         .catch(error => {
           console.log(error);
