@@ -125,28 +125,28 @@ let data = {
   ]
 };
 
-export function getProfileFormData(field) {
+export function getProfileFormData(field: any) {
   return data[field];
 }
 
-export function getEditsFromName(name) {
-  data.members.forEach(function(member) {
-    console.log(member);
-    if (member.name === name) {
-      return member.edits;
-    }
-  });
-}
+// export function getEditsFromName(name) {
+//   data.members.forEach(function(member) {
+//     console.log(member);
+//     if (member.name === name) {
+//       return member.edits;
+//     }
+//   });
+// }
 
-export function getAllEdits() {
-  list = [];
+// export function getAllEdits() {
+//   list = [];
 
-  data.members.forEach(function(member) {
-    member.edits.forEach(function(edit) {
-      edit[name] = member.name;
-      list.push(edit);
-    });
-  });
+//   data.members.forEach(function(member) {
+//     member.edits.forEach(function(edit) {
+//       edit[name] = member.name;
+//       list.push(edit);
+//     });
+//   });
 
-  return list;
-}
+//   return list;
+// }
