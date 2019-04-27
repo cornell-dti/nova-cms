@@ -1,6 +1,6 @@
 <template>
   <div class="project">
-    <h1 class="project-header project-header-main">{{`Edit Page`}}</h1>
+    <h1 class="project-header project-header-main">{{`Edit `}}{{pageName}}{{` Page`}}</h1>
 
     <form class="project-form">
       <h2 class="project-header project-header-sub">{{`Website Header`}}</h2>
@@ -145,8 +145,10 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component
-export default class ProjectPage extends Vue {}
+export default class ProjectPage extends Vue {
+  @Prop() private pageName!: string;
+}
 </script>
