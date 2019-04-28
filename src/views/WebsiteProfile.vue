@@ -3,7 +3,25 @@
     <h1 class="profile-header-main">{{`Website Profile`}}</h1>
     <h2 class="profile-header-sub">{{`Edit Profile`}}</h2>
     <div class="profile-image-wrapper">
-      <img class="profile-image" src="https://www.cornelldti.org/static/members/ew469.jpg">
+      <div class="profile-upload-wrapper">
+        <a class="profile-upload" @click="toggleShow">{{`Upload a New Picture`}}</a>
+      </div>
+      <my-upload
+        langType="en"
+        :noRotate="false"
+        field="img"
+        @crop-success="cropSuccess"
+        @crop-upload-success="cropUploadSuccess"
+        @crop-upload-fail="cropUploadFail"
+        v-model="show"
+        :width="300"
+        :height="300"
+        url="/upload"
+        :params="params"
+        :headers="headers"
+        img-format="png"
+      ></my-upload>
+      <img class="profile-image" :src="imgDataUrl">
     </div>
     <form class="profile-form">
       <div class="profile-section">
@@ -197,6 +215,7 @@
   margin-right: auto;
   max-width: 220px;
   border-radius: 25px;
+  margin-top: 20px;
 }
 
 .profile-input {
@@ -293,15 +312,93 @@
     text-align: center;
   }
 }
+
+.profile-upload {
+  margin-top: 20px;
+  background: #747474;
+  border-radius: 19px;
+  width: 75%;
+  display: flex;
+  font-size: 18px;
+  font-weight: normal;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &-wrapper {
+    color: white;
+    display: flex;
+    justify-content: center;
+  }
+}
 </style>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import * as backend from "@/views/backend";
 // import MemberProfileModal from "@/views/MemberProfileModal.vue";
+import "babel-polyfill"; // es6 shim
+import myUpload from "vue-image-crop-upload";
+
+Vue.component("my-upload", myUpload);
 
 @Component
 export default class WebsiteProfile extends Vue {
+  show: boolean = false;
+  params: any = {
+    token: "123456798",
+    name: "avatar"
+  };
+
+  props: any = {
+    langType: "en"
+  };
+  headers: any = {
+    smail: "*_~"
+  };
+  imgDataUrl: String = ""; // the datebase64 url of created image
+
+  toggleShow() {
+    this.show = !this.show;
+  }
+
+  /**
+   * crop success
+   *
+   * [param] imgDataUrl
+   * [param] field
+   */
+  cropSuccess(imgDataUrl: any, field: any) {
+    console.log("-------- crop success --------");
+    this.imgDataUrl = imgDataUrl;
+  }
+
+  /**
+   * upload success
+   *
+   * [param] jsonData  server api return data, already json encode
+   * [param] field
+   */
+  cropUploadSuccess(jsonData: any, field: any) {
+    console.log("-------- upload success --------");
+    console.log(jsonData);
+    console.log("field: " + field);
+  }
+  /**
+   * upload fail
+   *
+   * [param] status    server api return error status, like 500
+   * [param] field
+   */
+  cropUploadFail(status: any, field: any) {
+    console.log("-------- upload fail --------");
+    console.log(status);
+    console.log("field: " + field);
+  }
+
   // MemberProfileModal = MemberProfileModal;
   getProfileFormData(field: any) {
     return backend.getProfileFormData(field);
