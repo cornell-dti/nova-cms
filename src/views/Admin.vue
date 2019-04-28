@@ -132,7 +132,7 @@
               </td>
             </tr>
           </table>
-          <button class="submit" v-on:click="submitDecisions()">Submit Decisions</button>
+          <button class="submit" v-on:click="submitDecisions(edits)">Submit Decisions</button>
         </div>
       </div>
     </div>
@@ -360,9 +360,14 @@ input:checked + .slider:before {
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import * as backend from "@/views/backend";
+import Edits from './Edits.vue';
 
 @Component
 export default class Admin extends Vue {
+
+  data(){
+    let edits = this.getProfileFormData('edits');
+  }
   
   getProfileFormData(field: any) {
     return backend.getProfileFormData(field);
@@ -394,6 +399,13 @@ export default class Admin extends Vue {
     }
     console.log(field.name);
     console.log(field.status);
+  }
+  submitDecisions(field: any){
+    for (let item of field){
+      if (item.status != ""){
+
+      }
+    }
   }
 }
 </script>
