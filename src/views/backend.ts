@@ -28,19 +28,19 @@ let data = {
       name: "LinkedIn Profile",
       date: "3/24/19",
       content: "https://www.linkedin.com/in/evan-welsh-291577141/",
-      status: "Pending"
+      status: ""
     },
     {
       name: "Current Subteam",
       date: "3/20/19",
       content: "Flux",
-      status: "Rejected"
+      status: ""
     },
     {
       name: "First & Last Name",
       date: "3/14/19",
       content: "Evan Welsh",
-      status: "Approved"
+      status: ""
     }
   ],
   members: [

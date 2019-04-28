@@ -109,18 +109,31 @@
         <div class="admin-dropdown-main">
           <table class="admin-table">
             <tr class="row">
-              <th class="admin-name col admin-table-heading">Category</th>
-              <th class="admin-content col admin-table-heading">admin</th>
-              <th class="admin-date col admin-table-heading">Updated</th>
-              <th class="admin-status col admin-table-heading">Status</th>
+              <th class="admin-name col admin-table-heading">Member</th>
+              <th class="admin-content col admin-table-heading">Type of Edit</th>
+              <th class="admin-date col admin-table-heading">Edit</th>
+              <th class="admin-status col admin-table-heading">Decision</th>
+            </tr>
+            <tr class="row">
+              <td class="admin-name col">Evan</td>
+              <td class="admin-name col"></td>
+              <td class="admin-content col"></td>
+              <td class="admin-status col decision-buttons">
+                <button id="acceptButton">Accept All</button>
+                <button id="rejectButton">Reject All</button>
+              </td>
             </tr>
             <tr class="row" v-for="(field, index) in getProfileFormData('edits')" :key="index">
-              <td class="admin-name col">{{field.name}}</td>
+              <td class="admin-name col"></td>
+              <td class="admin-name col" v-if="field.status!='Approved' || field.status!='Rejected'">{{field.name}}</td>
               <td class="admin-content col">{{field.content}}</td>
-              <td class="admin-date col">{{field.date}}</td>
-              <td class="admin-status col" :class="field.status.toLowerCase()">{{field.status}}</td>
+              <td class="admin-status col decision-buttons">
+                <button id="acceptButton" v-on:click="accept(field)">Accept</button>
+                <button id="rejectButton" v-on:click="reject(field)">Reject</button>
+              </td>
             </tr>
           </table>
+          <button class="submit" v-on:click="submitDecisions()">Submit Decisions</button>
         </div>
       </div>
     </div>
@@ -321,6 +334,33 @@ input:checked + .slider:before {
   font-size: 18px;
   border: none;
 }
+
+.decision-buttons{
+  display:inline-block;
+
+  button{
+    background-color:transparent;
+    border-radius: 19px;
+    border-width:thin;
+  }
+  #acceptButton{
+    border-color:#00FF29;
+    color:#00FF29;
+  }
+  #rejectButton{
+    border-color:#FF324A;
+    color:#FF324A;
+  }
+}
+
+.submit{
+  border:none;
+  background-color:#ff324a;
+  color:white;
+  border-radius: 19px;
+  padding:2.5%;
+}
+
 </style>
 
 <script lang="ts">
@@ -331,6 +371,34 @@ import * as backend from "@/views/backend";
 export default class Admin extends Vue {
   getProfileFormData(field: any) {
     return backend.getProfileFormData(field);
+  }
+  accept(field:any) {
+    const accept_button = document.getElementById("acceptButton");
+    if(field.status!="Approved"){
+      accept_button.style.backgroundColor="#00FF29";
+      accept_button.style.color="white";
+      field.status="Approved";
+    } else {
+      accept_button.style.backgroundColor="transparent";
+      accept_button.style.color="#00FF29";
+      field.status="";
+    }
+    console.log(field.name);
+    console.log(field.status);
+  }
+  reject(field: any){
+    const accept_button = document.getElementById("rejectButton");
+    if(field.status!="Rejected"){
+      accept_button.style.backgroundColor="#FF324A";
+      accept_button.style.color="white";
+      field.status="Rejected";
+    } else {
+      accept_button.style.backgroundColor="transparent";
+      accept_button.style.color="#FF324A";
+      field.status="";
+    }
+    console.log(field.name);
+    console.log(field.status);
   }
 }
 </script>
