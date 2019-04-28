@@ -75,10 +75,9 @@
       <div class="admin-dropdown-content">
         <div class="admin-dropdown-main admin-buttons">
           <button
-            class="page-button"
+            class="page-link"
             v-for="(product, index) in getProfileFormData('products')"
             :key="index"
-            :style="{ backgroundColor: product.color}"
           >{{product.name}}</button>
         </div>
       </div>
@@ -92,7 +91,7 @@
       <div class="admin-dropdown-content">
         <div class="admin-dropdown-main admin-buttons">
           <button
-            class="page-button"
+            class="page-link"
             v-for="(page, index) in getProfileFormData('pages')"
             :key="index"
           >{{page.name}}</button>
@@ -323,16 +322,11 @@ input:checked + .slider:before {
   flex-wrap: wrap;
 }
 
-.page-button {
-  color: #000000;
-  background-color: #c4c4c4;
-  padding: 8px 21px 8px 21px;
-  border-radius: 19px;
-  margin-right: 20px;
-  margin-bottom: 12px;
-  font-weight: normal;
-  font-size: 18px;
-  border: none;
+.page-link {
+  text-decoration:underline;
+  color: #ff324a;
+  margin-left:2.5%;
+  margin-right:2.5%; 
 }
 
 .decision-buttons{
@@ -369,6 +363,7 @@ import * as backend from "@/views/backend";
 
 @Component
 export default class Admin extends Vue {
+  
   getProfileFormData(field: any) {
     return backend.getProfileFormData(field);
   }
