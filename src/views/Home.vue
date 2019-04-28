@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <h1>Login</h1>
-    <button v-on:click="getAuth()">getAuth</button>
     <button v-on:click="login()">Login</button>
   </div>
 </template>
@@ -17,11 +16,13 @@ const gauthOption = {
 
 Vue.use(GAuth, gauthOption);
 
-import VueResource from 'vue-resource'
-Vue.use(VueResource)
+import VueResource from "vue-resource";
+Vue.use(VueResource);
 
-Vue.http.options.emulateJSON = true
-const http=Vue.http
+Vue.http.options.emulateJSON = true;
+const http = Vue.http;
+
+import * as backend from "@/views/backend";
 
 //export default class Home extends Vue {}
 export default {
@@ -30,21 +31,15 @@ export default {
       (this as any).$gAuth
         .signIn()
         .then(GoogleUser => {
-          console.log("user", GoogleUser);
-          //console.log(GoogleUser.getId()); //: Get the user's unique ID string.
-          console.log(GoogleUser.getAuthResponse().id_token);
+          let email = GoogleUser.getBasicProfile().getEmail();
+          let userID = email.substring(0, email.indexOf("@cornell.edu"));
+          backend.initUser(userID).then(response => {
+            return http.post("http://localhost:3000/login", {
+              id_token: GoogleUser.getAuthResponse().id_token
+            });
 
-          // console.log(http);
-          // console.log(Vue.http);
-          // console.log(this.$http);
-          //  console.log((this as any).$http);
-
-          return http.post("http://localhost:3000/login", {
-            id_token: GoogleUser.getAuthResponse().id_token,
+            (this as any).isSignIn = (this as any).$gAuth.isAuthorized;
           });
-          // GoogleUser.getBasicProfile() : Get the user's basic profile information.
-          // GoogleUser.getAuthResponse() : Get the response object from the user's auth session. access_token and so on
-          (this as any).isSignIn = (this as any).$gAuth.isAuthorized;
         })
         .catch(error => {
           console.log(error);

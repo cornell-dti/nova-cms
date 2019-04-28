@@ -26,22 +26,32 @@
     <form class="profile-form">
       <div class="profile-section">
         <label for="name" class="profile-label">{{`First & Last Name`}}</label>
-        <input type="text" name="name" class="profile-input">
+        <input type="text" name="name" class="profile-input" :value="getUserInfo('name')">
       </div>
 
       <div class="profile-section">
         <label for="netid" class="profile-label">{{`NetID`}}</label>
-        <input type="text" name="netid" class="profile-input profile-input--small">
+        <input
+          type="text"
+          name="netid"
+          class="profile-input profile-input--small"
+          :value="getUserInfo('netid')"
+        >
       </div>
 
       <div class="profile-section">
         <label for="role" class="profile-label">{{`Role`}}</label>
-        <select name="role" class="profile-input profile-input--medium">
+        <select
+          name="role"
+          class="profile-input profile-input--medium"
+          :value="getUserInfo('roleDescription')"
+        >
           <option
             :class="profile-option"
             v-for="(role, index) in getProfileFormData('roles')"
             :key="index"
             :value="role"
+            :selected="role == getUserInfo('roleDescription')"
           >{{role}}</option>
         </select>
       </div>
@@ -49,11 +59,23 @@
       <div class="profile-section">
         <label for="lead" class="profile-label profile-label-header">{{`Are you a lead?`}}</label>
         <div>
-          <input type="radio" name="lead" class="profile-radio" value="yes">
+          <input
+            type="radio"
+            name="lead"
+            class="profile-radio"
+            value="yes"
+            :checked="getUserInfo('isLead')"
+          >
           <div class="profile-lead">{{`Yes`}}</div>
         </div>
         <div>
-          <input type="radio" name="lead" class="profile-radio" value="no">
+          <input
+            type="radio"
+            name="lead"
+            class="profile-radio"
+            value="no"
+            :checked="!getUserInfo('isLead')"
+          >
           <div class="profile-lead">{{`No`}}</div>
         </div>
       </div>
@@ -69,6 +91,7 @@
               v-for="(month, index) in months"
               :key="index"
               :value="month"
+              :selected="month == months[parseInt(getUserInfo('graduation').substring(0, 2)) - 1]"
             >{{month}}</option>
           </select>
         </div>
@@ -79,6 +102,7 @@
               v-for="(year, index) in getProfileFormData('years')"
               :key="index"
               :value="year"
+              :selected="year == getUserInfo('graduation').substring(3)"
             >{{year}}</option>
           </select>
         </div>
@@ -86,17 +110,22 @@
 
       <div class="profile-section">
         <label for="major" class="profile-label">{{`Major`}}</label>
-        <input type="text" name="major" class="profile-input">
+        <input type="text" name="major" class="profile-input" :value="getUserInfo('major')">
       </div>
 
       <div class="profile-section">
         <label for="secondary-major" class="profile-label">{{`Secondary Major`}}</label>
-        <input type="text" name="secondary-major" class="profile-input">
+        <input
+          type="text"
+          name="secondary-major"
+          class="profile-input"
+          :value="getUserInfo('doubleMajor')"
+        >
       </div>
 
       <div class="profile-section">
         <label for="minor" class="profile-label">{{`Minor`}}</label>
-        <input type="text" name="minor" class="profile-input">
+        <input type="text" name="minor" class="profile-input" :value="getUserInfo('minor')">
       </div>
 
       <div class="profile-two-column">
@@ -108,6 +137,7 @@
               v-for="(state, index) in states"
               :key="index"
               :value="state"
+              :selected="state == getUserInfo('hometown').substring(getUserInfo('hometown').lastIndexOf(',') + 2)"
             >{{state}}</option>
           </select>
         </div>
@@ -128,12 +158,17 @@
 
       <div class="profile-section">
         <label for="hometown" class="profile-label">{{`Hometown`}}</label>
-        <input type="text" name="hometown" class="profile-input">
+        <input
+          type="text"
+          name="hometown"
+          class="profile-input"
+          :value="getUserInfo('hometown').substring(0, getUserInfo('hometown').lastIndexOf(','))"
+        >
       </div>
 
       <div class="profile-section">
         <label for="about" class="profile-label">{{`About Me blurb`}}</label>
-        <textarea name="about" class="profile-input profile-textarea"></textarea>
+        <textarea name="about" class="profile-input profile-textarea" :value="getUserInfo('about')"></textarea>
       </div>
 
       <div class="profile-section">
@@ -144,6 +179,7 @@
             v-for="(subteam, index) in getProfileFormData('subteams')"
             :key="index"
             :value="subteam"
+            :selected="subteam.toLowerCase() == getUserInfo('subteam')"
           >{{subteam}}</option>
         </select>
       </div>
@@ -159,7 +195,13 @@
             v-for="(subteam, index) in getProfileFormData('subteams')"
             :key="index"
           >
-            <input class="profile-checkbox" type="checkbox" name="other-subteams" :value="subteam">
+            <input
+              class="profile-checkbox"
+              type="checkbox"
+              name="other-subteams"
+              :value="subteam"
+              :checked="getUserInfo('otherSubteams') && getUserInfo('otherSubteams').includes(subteam.toLowerCase())"
+            >
             {{subteam}}
           </div>
         </div>
@@ -167,17 +209,17 @@
 
       <div class="profile-section">
         <label for="portfolio" class="profile-label">{{`Portfolio Link`}}</label>
-        <input type="text" name="portfolio" class="profile-input">
+        <input type="text" name="portfolio" class="profile-input" :value="getUserInfo('website')">
       </div>
 
       <div class="profile-section">
         <label for="github" class="profile-label">{{`Github Profile`}}</label>
-        <input type="text" name="github" class="profile-input">
+        <input type="text" name="github" class="profile-input" :value="getUserInfo('github')">
       </div>
 
       <div class="profile-section">
         <label for="linkedin" class="profile-label">{{`Linkedin Profile`}}</label>
-        <input type="text" name="linkedin" class="profile-input">
+        <input type="text" name="linkedin" class="profile-input" :value="getUserInfo('linkedin')">
       </div>
 
       <div class="profile-section profile-button-wrapper">
@@ -402,6 +444,10 @@ export default class WebsiteProfile extends Vue {
   // MemberProfileModal = MemberProfileModal;
   getProfileFormData(field: any) {
     return backend.getProfileFormData(field);
+  }
+
+  getUserInfo(field: any) {
+    return backend.getUserInfo(field);
   }
 
   months: Array<String> = [

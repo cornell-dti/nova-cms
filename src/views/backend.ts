@@ -151,3 +151,17 @@ export function getEditsFromName(name:  any) {
 //  // @ts-ignore
 //   return list;
 // }
+import axios from 'axios';
+let userInfoJSON: any = null;
+
+export function initUser(userID: any) {
+  const base = 'https://dti-nova-cms-api.herokuapp.com/';
+  return axios.get(`${base}member/${userID}`)
+  .then(response => {
+    userInfoJSON = response.data;
+  });
+}
+
+export function getUserInfo(field: any) {
+  return userInfoJSON[field];
+}
