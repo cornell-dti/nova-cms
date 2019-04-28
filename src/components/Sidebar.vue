@@ -7,7 +7,7 @@
     <b-navbar-nav class="menu-nav flex-column">
         <b-nav-item to="/"><img class="sidebar-icon" src="../assets/updates.png"/>Home</b-nav-item>
         <b-nav-item to="/profile"><img class="sidebar-icon" src="../assets/profile.png"/>Edit Profile</b-nav-item>
-        <b-nav-item to="/admin">Admin Tools</b-nav-item>
+        <b-nav-item to="/admin"><img class="sidebar-icon" src="../assets/admin.png"/>Admin Tools</b-nav-item>
         <b-nav-item to="/edits">Pending Edits</b-nav-item>
         <b-nav-item to="/project">Project</b-nav-item>
     </b-navbar-nav>
