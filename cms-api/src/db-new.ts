@@ -82,4 +82,24 @@ export abstract class ElementDB<T extends JSONObject> {
                 }).catch(reject);
         });
     }
+
+    addOne(data: T) : Promise<T> {
+        return new Promise<T>((resolve, reject) => {
+            this.getCollectionRef().doc().set(data).then(_ => {
+                resolve(data);
+            }).catch(reject);
+        });
+    }
+
+    removeOne(key: string, val: string) : Promise<String> {
+        return new Promise<String>((resolve, reject) => {
+            this.getCollectionRef().where(key, '==', val).limit(1).get()
+                .then(qSnap => {
+                    if (qSnap.empty) return reject(`No element with ${key} found.`);
+                    this.getCollectionRef().doc(qSnap.docs[0].id).delete;
+                    resolve("Success!");
+                })
+                .catch(reject);
+        });
+    }
 }
