@@ -2,6 +2,7 @@
   <div class="profile">
     <h1 class="profile-header-main">{{`Website Profile`}}</h1>
     <select
+      v-if="getUserInfo('isLead') === true"
       name="user"
       v-model="idValue"
       @change="changeUser(idValue)"
