@@ -34,8 +34,10 @@ export default {
           let email = GoogleUser.getBasicProfile().getEmail();
           let userID = email.substring(0, email.indexOf("@cornell.edu"));
           backend.initUser(userID).then(response => {
-            return http.post("http://localhost:3000/login", {
-              id_token: GoogleUser.getAuthResponse().id_token
+            backend.initUsersNames().then(response2 => {
+              return http.post("http://localhost:3000/login", {
+                id_token: GoogleUser.getAuthResponse().id_token
+              });
             });
 
             (this as any).isSignIn = (this as any).$gAuth.isAuthorized;

@@ -1,6 +1,19 @@
 <template>
   <div class="profile">
     <h1 class="profile-header-main">{{`Website Profile`}}</h1>
+    <select
+      name="user"
+      v-model="idValue"
+      @change="changeUser(idValue)"
+      class="profile-input profile-input--small"
+    >
+      <option
+        :class="profile-option"
+        v-for="(user, index) in getAllUsersNames()"
+        :key="index"
+        :value="user.netid"
+      >{{user.name}}</option>
+    </select>
     <h2 class="profile-header-sub">{{`Edit Profile`}}</h2>
     <div class="profile-image-wrapper">
       <div class="profile-upload-wrapper">
@@ -389,6 +402,7 @@ Vue.component("my-upload", myUpload);
 
 @Component
 export default class WebsiteProfile extends Vue {
+  idValue: any = this.getUserInfo("netid");
   show: boolean = false;
   params: any = {
     token: "123456798",
@@ -446,8 +460,18 @@ export default class WebsiteProfile extends Vue {
     return backend.getProfileFormData(field);
   }
 
+  changeUser(netid: any) {
+    backend.initUser(netid).then(response => {
+      this.$forceUpdate();
+    });
+  }
+
   getUserInfo(field: any) {
     return backend.getUserInfo(field);
+  }
+
+  getAllUsersNames(field: any) {
+    return backend.getAllUsersNames();
   }
 
   months: Array<String> = [

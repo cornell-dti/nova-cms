@@ -126,10 +126,10 @@ let data = {
 };
 
 export function getProfileFormData(field: any) {
-  return (data as any) [field];
+  return (data as any)[field];
 }
 
-export function getEditsFromName(name:  any) {
+export function getEditsFromName(name: any) {
   data.members.forEach(function(member) {
     console.log(member);
     if (member.name === name) {
@@ -151,15 +151,36 @@ export function getEditsFromName(name:  any) {
 //  // @ts-ignore
 //   return list;
 // }
-import axios from 'axios';
+import axios from "axios";
 let userInfoJSON: any = null;
+let userNames: any = [];
+
+const base = "http://localhost:3000/";
 
 export function initUser(userID: any) {
-  const base = 'https://dti-nova-cms-api.herokuapp.com/';
-  return axios.get(`${base}member/${userID}`)
-  .then(response => {
+  console.log("user");
+  return axios.get(`${base}member/${userID}`).then(response => {
     userInfoJSON = response.data;
+    console.log(userInfoJSON);
   });
+}
+
+export function initUsersNames() {
+  return axios.get(`${base}members`).then(response => {
+    let allUserData = response.data;
+    allUserData.forEach(function(member: any) {
+      let user = {
+        name: member.name,
+        netid: member.netid
+      };
+      console.log(user);
+      userNames.push(user);
+    });
+  });
+}
+
+export function getAllUsersNames() {
+  return userNames;
 }
 
 export function getUserInfo(field: any) {
