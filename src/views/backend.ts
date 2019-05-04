@@ -23,6 +23,38 @@ let data = {
     "Rescuer",
     "Website"
   ],
+  multiple_edits:[
+    {
+      member:"Evan Welsh", 
+      edits:[
+        {
+          edit_type:"LinkedIn Profile", 
+          edit: "https://www.linkedin.com/in/evan-welsh-291577141/",
+          status: ""
+        },
+        {
+          edit_type:"Current Subteam", 
+          edit:"Flux", 
+          status: ""
+        }
+      ]
+    },
+    {
+      member:"Kathleen Xu",
+      edits:[
+        {
+          edit_type:"Hometown",
+          edit:"Millburn",
+          status: ""
+        },
+        {
+          edit_type:"First & Last Name",
+          edit: "Kathleen Xu",
+          status: ""
+        }
+      ]
+    }
+  ],
   edits: [
     {
       name: "LinkedIn Profile",

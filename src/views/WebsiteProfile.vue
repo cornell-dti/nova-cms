@@ -341,7 +341,7 @@ import { Component, Vue } from "vue-property-decorator";
 import * as backend from "@/views/backend";
 // import MemberProfileModal from "@/views/MemberProfileModal.vue";
 import "babel-polyfill"; // es6 shim
-import myUpload from "vue-image-crop-upload";
+import myUpload from "vue-image-crop-upload/upload-2.vue";
 
 Vue.component("my-upload", myUpload);
 
