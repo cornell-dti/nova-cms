@@ -157,7 +157,7 @@
 
         <div class="profile-section">
           <label for="country" class="profile-label">{{`Country`}}</label>
-          <select name="country" class="profile-input profile-input--medium">
+          <select name="country" class="profile-input profile-input--medium" >
             <option
               :class="profile-option"
               v-for="(country, index) in countries"
@@ -402,6 +402,8 @@ Vue.component("my-upload", myUpload);
 
 @Component
 export default class WebsiteProfile extends Vue {
+  profile: any = null;
+  option: any = null;
   idValue: any = this.getUserInfo("netid");
   show: boolean = false;
   params: any = {

@@ -158,10 +158,8 @@ let userNames: any = [];
 const base = "http://localhost:3000/";
 
 export function initUser(userID: any) {
-  console.log("user");
   return axios.get(`${base}member/${userID}`).then(response => {
     userInfoJSON = response.data;
-    console.log(userInfoJSON);
   });
 }
 
@@ -173,7 +171,6 @@ export function initUsersNames() {
         name: member.name,
         netid: member.netid
       };
-      console.log(user);
       userNames.push(user);
     });
   });
