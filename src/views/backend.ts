@@ -1,4 +1,18 @@
 let data = {
+  months: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
   roles: [
     "Developer",
     "Designer",
@@ -182,4 +196,23 @@ export function getAllUsersNames() {
 
 export function getUserInfo(field: any) {
   return userInfoJSON[field];
+}
+
+export function getMonths() {
+  return data.months;
+}
+
+export function editable() {
+  axios.get(`${base}members/editable`).then(response => {
+    console.log("edit");
+    console.log(response);
+  })
+}
+
+export function postUpdate(userID: any, json: any) {
+  console.log(userID);
+  console.log(json);
+  axios.post(`${base}member`, json).then(response => {
+    console.log(response);
+  });
 }

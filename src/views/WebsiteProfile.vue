@@ -40,32 +40,22 @@
     <form class="profile-form">
       <div class="profile-section">
         <label for="name" class="profile-label">{{`First & Last Name`}}</label>
-        <input type="text" name="name" class="profile-input" :value="getUserInfo('name')">
+        <input type="text" name="name" class="profile-input" v-model="userName">
       </div>
 
       <div class="profile-section">
         <label for="netid" class="profile-label">{{`NetID`}}</label>
-        <input
-          type="text"
-          name="netid"
-          class="profile-input profile-input--small"
-          :value="getUserInfo('netid')"
-        >
+        <input type="text" name="netid" class="profile-input profile-input--small" v-model="netID">
       </div>
 
       <div class="profile-section">
         <label for="role" class="profile-label">{{`Role`}}</label>
-        <select
-          name="role"
-          class="profile-input profile-input--medium"
-          :value="getUserInfo('roleDescription')"
-        >
+        <select name="role" class="profile-input profile-input--medium" v-model="roleDescription">
           <option
             :class="profile-option"
             v-for="(role, index) in getProfileFormData('roles')"
             :key="index"
-            :value="role"
-            :selected="role == getUserInfo('roleDescription')"
+            :value="role.toLowerCase()"
           >{{role}}</option>
         </select>
       </div>
@@ -73,23 +63,11 @@
       <div class="profile-section">
         <label for="lead" class="profile-label profile-label-header">{{`Are you a lead?`}}</label>
         <div>
-          <input
-            type="radio"
-            name="lead"
-            class="profile-radio"
-            value="yes"
-            :checked="getUserInfo('isLead')"
-          >
+          <input v-model="isLead" type="radio" name="lead" class="profile-radio" value="true">
           <div class="profile-lead">{{`Yes`}}</div>
         </div>
         <div>
-          <input
-            type="radio"
-            name="lead"
-            class="profile-radio"
-            value="no"
-            :checked="!getUserInfo('isLead')"
-          >
+          <input v-model="isLead" type="radio" name="lead" class="profile-radio" value="false">
           <div class="profile-lead">{{`No`}}</div>
         </div>
       </div>
@@ -99,24 +77,22 @@
       >{{`When is your projected graduation date?`}}</label>
       <div class="profile-two-column">
         <div class="profile-section">
-          <select name="month" class="profile-input profile-input--medium">
+          <select name="month" class="profile-input profile-input--medium" v-model="vMonth">
             <option
               :class="profile-option"
-              v-for="(month, index) in months"
+              v-for="(month, index) in getMonths()"
               :key="index"
               :value="month"
-              :selected="month == months[parseInt(getUserInfo('graduation').substring(0, 2)) - 1]"
             >{{month}}</option>
           </select>
         </div>
         <div class="profile-section">
-          <select name="year" class="profile-input profile-input--small">
+          <select name="year" class="profile-input profile-input--small" v-model="vYear">
             <option
               :class="profile-option"
               v-for="(year, index) in getProfileFormData('years')"
               :key="index"
               :value="year"
-              :selected="year == getUserInfo('graduation').substring(3)"
             >{{year}}</option>
           </select>
         </div>
@@ -124,41 +100,35 @@
 
       <div class="profile-section">
         <label for="major" class="profile-label">{{`Major`}}</label>
-        <input type="text" name="major" class="profile-input" :value="getUserInfo('major')">
+        <input type="text" name="major" class="profile-input" v-model="major">
       </div>
 
       <div class="profile-section">
         <label for="secondary-major" class="profile-label">{{`Secondary Major`}}</label>
-        <input
-          type="text"
-          name="secondary-major"
-          class="profile-input"
-          :value="getUserInfo('doubleMajor')"
-        >
+        <input type="text" name="secondary-major" class="profile-input" v-model="doubleMajor">
       </div>
 
       <div class="profile-section">
         <label for="minor" class="profile-label">{{`Minor`}}</label>
-        <input type="text" name="minor" class="profile-input" :value="getUserInfo('minor')">
+        <input type="text" name="minor" class="profile-input" v-model="minor">
       </div>
 
       <div class="profile-two-column">
         <div class="profile-section">
           <label for="state" class="profile-label">{{`State`}}</label>
-          <select name="state" class="profile-input profile-input--medium">
+          <select name="state" class="profile-input profile-input--medium" v-model="vState">
             <option
               :class="profile-option"
               v-for="(state, index) in states"
               :key="index"
               :value="state"
-              :selected="state == getUserInfo('hometown').substring(getUserInfo('hometown').lastIndexOf(',') + 2)"
             >{{state}}</option>
           </select>
         </div>
 
         <div class="profile-section">
           <label for="country" class="profile-label">{{`Country`}}</label>
-          <select name="country" class="profile-input profile-input--medium" >
+          <select name="country" class="profile-input profile-input--medium" v-model="vCountry">
             <option
               :class="profile-option"
               v-for="(country, index) in countries"
@@ -172,28 +142,22 @@
 
       <div class="profile-section">
         <label for="hometown" class="profile-label">{{`Hometown`}}</label>
-        <input
-          type="text"
-          name="hometown"
-          class="profile-input"
-          :value="getUserInfo('hometown').substring(0, getUserInfo('hometown').lastIndexOf(','))"
-        >
+        <input v-model="hometown" type="text" name="hometown" class="profile-input">
       </div>
 
       <div class="profile-section">
         <label for="about" class="profile-label">{{`About Me blurb`}}</label>
-        <textarea name="about" class="profile-input profile-textarea" :value="getUserInfo('about')"></textarea>
+        <textarea name="about" class="profile-input profile-textarea" v-model="about"></textarea>
       </div>
 
       <div class="profile-section">
         <label for="subteam" class="profile-label">{{`Current Subteam`}}</label>
-        <select name="subteam" class="profile-input profile-input--medium">
+        <select name="subteam" class="profile-input profile-input--medium" v-model="vSubteam">
           <option
             :class="profile-option"
             v-for="(subteam, index) in getProfileFormData('subteams')"
             :key="index"
-            :value="subteam"
-            :selected="subteam.toLowerCase() == getUserInfo('subteam')"
+            :value="subteam.toLowerCase()"
           >{{subteam}}</option>
         </select>
       </div>
@@ -210,11 +174,11 @@
             :key="index"
           >
             <input
+              v-model="subteamModels[subteam]"
               class="profile-checkbox"
               type="checkbox"
               name="other-subteams"
               :value="subteam"
-              :checked="getUserInfo('otherSubteams') && getUserInfo('otherSubteams').includes(subteam.toLowerCase())"
             >
             {{subteam}}
           </div>
@@ -223,21 +187,21 @@
 
       <div class="profile-section">
         <label for="portfolio" class="profile-label">{{`Portfolio Link`}}</label>
-        <input type="text" name="portfolio" class="profile-input" :value="getUserInfo('website')">
+        <input type="text" name="portfolio" class="profile-input" v-model="website">
       </div>
 
       <div class="profile-section">
         <label for="github" class="profile-label">{{`Github Profile`}}</label>
-        <input type="text" name="github" class="profile-input" :value="getUserInfo('github')">
+        <input type="text" name="github" class="profile-input" v-model="github">
       </div>
 
       <div class="profile-section">
         <label for="linkedin" class="profile-label">{{`Linkedin Profile`}}</label>
-        <input type="text" name="linkedin" class="profile-input" :value="getUserInfo('linkedin')">
+        <input type="text" name="linkedin" class="profile-input" v-model="linkedin">
       </div>
 
       <div class="profile-section profile-button-wrapper">
-        <input type="submit" value="Submit" class="profile-button">
+        <a class="profile-button" v-on:click="constructAndPostJSON()">{{`Submit`}}</a>
       </div>
     </form>
   </div>
@@ -403,6 +367,63 @@ Vue.component("my-upload", myUpload);
 
 @Component
 export default class WebsiteProfile extends Vue {
+  subteamModels: any = this.constructSubteamModels();
+
+  userName: String = this.getUserInfo("name");
+  netID: String = this.getUserInfo("netid");
+  roleDescription: String = this.getUserInfo("roleDescription");
+  isLead: boolean = this.getUserInfo("isLead");
+
+  months: any = this.getMonths();
+  vMonth: String = this.months[
+    parseInt(this.getUserInfo("graduation").substring(0, 2)) - 1
+  ];
+
+  vYear: String = this.getUserInfo("graduation").substring(3);
+  major: String = this.getUserInfo("major");
+  doubleMajor: String = this.getUserInfo("doubleMajor");
+  minor: String = this.getUserInfo("minor");
+  vState: String = this.getUserInfo("hometown").substring(
+    this.getUserInfo("hometown").lastIndexOf(",") + 2
+  );
+
+  // vCountry: any = this.getUserInfo('country'); TODO - country not in dataset
+
+  hometown: String = this.getUserInfo("hometown").substring(
+    0,
+    this.getUserInfo("hometown").lastIndexOf(",")
+  );
+  about: String = this.getUserInfo("about");
+  vSubteam: String = this.getUserInfo("subteam");
+
+  website: String = this.getUserInfo("website");
+  github: String = this.getUserInfo("github");
+  linkedin: String = this.getUserInfo("linkedin");
+
+  constructAndPostJSON() {
+    let json = {
+      name: this.userName,
+      netid: this.netID,
+      roleDescription: this.roleDescription,
+      isLead: this.isLead,
+      month: this.vMonth,
+      year: this.vYear,
+      major: this.major,
+      doubleMajor: this.doubleMajor,
+      minor: this.minor,
+      state: this.vState,
+      hometown: this.hometown,
+      about: this.about,
+      subteam: this.vSubteam,
+      website: this.website,
+      linkedin: this.linkedin,
+      github: this.github
+    };
+    // TODO - SEND POST REQUEST
+    // backend.editable();
+    // backend.postUpdate(this.netID, json); 
+  }
+
   profile: any = null;
   option: any = null;
   idValue: any = this.getUserInfo("netid");
@@ -465,8 +486,54 @@ export default class WebsiteProfile extends Vue {
 
   changeUser(netid: any) {
     backend.initUser(netid).then(response => {
-      this.$forceUpdate();
+      this.setFields();
     });
+  }
+
+  setFields() {
+    this.subteamModels = this.constructSubteamModels();
+
+    this.userName = this.getUserInfo("name");
+    this.netID = this.getUserInfo("netid");
+    this.idValue = this.getUserInfo("netid");
+
+    this.roleDescription = this.getUserInfo("roleDescription");
+    this.isLead = this.getUserInfo("isLead");
+
+    this.vMonth = this.months[
+      parseInt(this.getUserInfo("graduation").substring(0, 2)) - 1
+    ];
+
+    this.vYear = this.getUserInfo("graduation").substring(3);
+    this.major = this.getUserInfo("major");
+    this.doubleMajor = this.getUserInfo("doubleMajor");
+    this.minor = this.getUserInfo("minor");
+    this.vState = this.getUserInfo("hometown").substring(
+      this.getUserInfo("hometown").lastIndexOf(",") + 2
+    );
+    //TODO does country exist in the data?
+    // this.vCountry = this.getUserInfo('country');
+    this.hometown = this.getUserInfo("hometown").substring(
+      0,
+      this.getUserInfo("hometown").lastIndexOf(",")
+    );
+    this.about = this.getUserInfo("about");
+    this.vSubteam = this.getUserInfo("subteam");
+
+    this.website = this.getUserInfo("website");
+    this.github = this.getUserInfo("github");
+    this.linkedin = this.getUserInfo("linkedin");
+  }
+
+  constructSubteamModels() {
+    let subteams = this.getProfileFormData("subteams");
+    let subteamModel = <any>{};
+    let otherSubteams = this.getUserInfo("otherSubteams");
+    subteams.forEach(function(subteam: any) {
+      subteamModel[subteam] = (otherSubteams && otherSubteams.includes(subteam.toLowerCase()));
+    });
+
+    return subteamModel;
   }
 
   getUserInfo(field: any) {
@@ -477,20 +544,9 @@ export default class WebsiteProfile extends Vue {
     return backend.getAllUsersNames();
   }
 
-  months: Array<String> = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
+  getMonths() {
+    return backend.getMonths();
+  }
 
   states: Array<String> = [
     "Other",
