@@ -209,8 +209,8 @@
 
 <style scoped lang="scss">
 .profile {
-  margin-left: 20%;
-  margin-right: 20%;
+  width: 100%;
+  margin: 4vh 10vw 4vh 10vw;
   font-size: 18px;
   font-weight: 500;
 }
@@ -421,7 +421,7 @@ export default class WebsiteProfile extends Vue {
     };
     // TODO - SEND POST REQUEST
     // backend.editable();
-    // backend.postUpdate(this.netID, json); 
+    // backend.postUpdate(this.netID, json);
   }
 
   profile: any = null;
@@ -530,7 +530,8 @@ export default class WebsiteProfile extends Vue {
     let subteamModel = <any>{};
     let otherSubteams = this.getUserInfo("otherSubteams");
     subteams.forEach(function(subteam: any) {
-      subteamModel[subteam] = (otherSubteams && otherSubteams.includes(subteam.toLowerCase()));
+      subteamModel[subteam] =
+        otherSubteams && otherSubteams.includes(subteam.toLowerCase());
     });
 
     return subteamModel;

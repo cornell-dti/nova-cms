@@ -20,8 +20,8 @@
 
 <style scoped lang="scss">
 .edits {
-  margin-left: 45px;
-  margin-right: 45px;
+  width: 100%;
+  margin: 4vh 10vw 4vh 10vw;
   font-size: 18px;
   font-weight: 500;
 }

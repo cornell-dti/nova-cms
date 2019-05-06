@@ -239,8 +239,8 @@ input:checked + .slider:before {
 }
 
 .admin {
-  margin-left: 20%;
-  margin-right: 20%;
+  width: 100%;
+  margin: 4vh 10vw 4vh 10vw;
   font-size: 18px;
   font-weight: 500;
 }
