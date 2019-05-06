@@ -8,6 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import GAuth from "vue-google-oauth2";
+import axios from "axios";
 
 const gauthOption = {
   clientId:
@@ -15,12 +16,6 @@ const gauthOption = {
 };
 
 Vue.use(GAuth, gauthOption);
-
-import VueResource from "vue-resource";
-Vue.use(VueResource);
-
-Vue.http.options.emulateJSON = true;
-const http = Vue.http;
 
 import * as backend from "@/views/backend";
 
@@ -31,13 +26,17 @@ export default {
       (this as any).$gAuth
         .signIn()
         .then(GoogleUser => {
+          axios.post("http://localhost:3000/login", {
+            
+                id_token: GoogleUser.getAuthResponse().id_token
+              });.then(x => {
+                x.userid
+              })
           let email = GoogleUser.getBasicProfile().getEmail();
           let userID = email.substring(0, email.indexOf("@cornell.edu"));
           backend.initUser(userID).then(response => {
             backend.initUsersNames().then(response2 => {
-              return http.post("http://localhost:3000/login", {
-                id_token: GoogleUser.getAuthResponse().id_token
-              });
+
             });
 
             (this as any).isSignIn = (this as any).$gAuth.isAuthorized;

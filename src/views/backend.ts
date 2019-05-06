@@ -171,6 +171,12 @@ let userNames: any = [];
 
 const base = "http://localhost:3000/";
 
+const instance = axios.create({
+  baseURL: this.base,
+  timeout: 1000,
+  headers: {'X-Custom-Header': 'foobar'}
+});
+
 export function initUser(userID: any) {
   return axios.get(`${base}member/${userID}`).then(response => {
     userInfoJSON = response.data;
