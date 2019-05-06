@@ -29,15 +29,18 @@ export default {
           axios.post("http://localhost:3000/login", {
             
                 id_token: GoogleUser.getAuthResponse().id_token
-              });.then(x => {
-                x.userid
-              })
-          let email = GoogleUser.getBasicProfile().getEmail();
-          let userID = email.substring(0, email.indexOf("@cornell.edu"));
-          backend.initUser(userID).then(response => {
-            backend.initUsersNames().then(response2 => {
+              }).then(x => {
+                backend.initUser(x.netid).then(response => {
+                  backend.initUsersNames().then(response2 => {
+                    
 
-            });
+                //do the init stuff in here, grab the user id from the x object you get from logging in.
+
+                  });
+
+
+              });
+
 
             (this as any).isSignIn = (this as any).$gAuth.isAuthorized;
           });
