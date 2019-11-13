@@ -197,16 +197,16 @@ export function getEditsFromName(name: any) {
 //  // @ts-ignore
 //   return list;
 // }
-import axios from "axios";
+import axios from 'axios';
 let userInfoJSON: any = null;
 let userNames: any = [];
 
-const base = "http://localhost:3000/";
+const base = 'http://localhost:3000/';
 
 const instance = axios.create({
-  baseURL: this.base,
+  baseURL: base,
   timeout: 1000,
-  headers: {'X-Custom-Header': 'foobar'}
+  headers: { 'X-Custom-Header': 'foobar' }
 });
 
 export function initUser(userID: any) {
@@ -244,7 +244,7 @@ export function editable() {
   axios.get(`${base}members/editable`).then(response => {
     console.log("edit");
     console.log(response);
-  })
+  });
 }
 
 export function postUpdate(userID: any, json: any) {
