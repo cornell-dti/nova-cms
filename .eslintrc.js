@@ -10,8 +10,7 @@ module.exports = {
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',
-    ecmaFeatures: {
-      legacyDecorators: true
-    }
+    project: './tsconfig.json',
+    extraFileExtensions: ['.vue']
   }
 };
