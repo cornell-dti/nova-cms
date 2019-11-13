@@ -15,6 +15,7 @@ export interface TypeDef {
   json?: Function;
 }
 
+// @ts-ignore
 export interface DynamicTypeDef extends TypeDef {
   type(json: JSONDoc): boolean;
 }
@@ -44,10 +45,12 @@ export class EnumTypeDef<K> extends OptionalTypeDef implements TypeDef {
     this.enumValues = Object.values(enumDef);
   }
 
+  // @ts-ignore
   type(val: JSONDoc): boolean {
     return this.enumValues.indexOf(val) !== -1;
   }
 
+  // @ts-ignore
   parse(val: JSONDoc): K {
     return (val as unknown) as K;
   }
@@ -79,6 +82,7 @@ export class ArrayTypeDef<K extends JSONObject> extends OptionalTypeDef implemen
     return Array.isArray(val);
   }
 
+  // @ts-ignore
   parse(json: JSONDoc[] = []): K[] {
     return json.map((j: JSONDoc) => this.constr(j));
   }
@@ -101,6 +105,7 @@ export class MapTypeDef<K extends JSONObject> implements DynamicTypeDef {
     return Array.from(map.values());
   }
 
+  // @ts-ignore
   parse(json: JSONDoc[] = []): Map<string, K> {
     return new /* eslint-disable-line no-undef */ Map(
       this.arrayTypeDef.parse(json).map(item => [item[this.key], item] as [string, K])
@@ -119,6 +124,7 @@ export class JSONObjectTypeDef<K extends JSONObject> extends OptionalTypeDef imp
     this.constr = data => constructor.fromJSON(data);
   }
 
+  // @ts-ignore
   parse(json: JSONDoc) {
     return this.constr(json);
   }
@@ -162,6 +168,7 @@ export interface JSONObject {
 export type Assignable = number | string | boolean | JSONObject;
 
 export class InternalJSONObject {
+  // @ts-ignore
   ___jsonprops___: StrictTypeStruct = this.___jsonprops___ || {};
 }
 
@@ -175,6 +182,7 @@ function validateTypes(map: TypeStruct, json: JSONDoc): string[] {
     const isDefType: boolean =
       isTypeDef(mp) &&
       ((typeof mp.type === 'string' && typeof json[prop as string] === mp.type) ||
+        // @ts-ignore
         (typeof mp.type === 'function' && mp.type.call(mp, json[prop as string])) ||
         mp.type === jsonobj);
     return !(
@@ -215,6 +223,7 @@ export class JSONObject extends InternalJSONObject {
 
         if (key in json) {
           if (isTypeDef(m)) {
+            // @ts-ignore
             obj[key] = typeof m.parse === 'function' ? m.parse.call(m, json[key]) : json[key];
           } else {
             obj[key] = json[key];
@@ -232,6 +241,7 @@ export class JSONObject extends InternalJSONObject {
   ): TypeDef {
     return {
       type: jsonobj,
+      // @ts-ignore
       parse: (val: JSONDoc) => this.fromJSON(val),
       optional
     };
@@ -255,6 +265,7 @@ function defForOpt(value: TypeOpt): TypeDef {
     };
   } else if (typeof value === 'function') {
     def = {
+      // @ts-ignore
       type: value as ((val: JSONDoc) => boolean)
     };
   } else {
@@ -347,7 +358,9 @@ export function JSONEnum<K, T extends JSONObject>(enumDef: K): (target: T, prope
 export function JSONParsable(value: TypeStruct = {}) {
   return function def<T extends { new (...args: any[]): JSONObject }>(constructor: T) {
     return class StaticThis extends constructor implements JSONObject {
+      // @ts-ignore
       ___jsontypes___: TypeStruct = this.___jsontypes___
+        // @ts-ignore
         ? Object.assign(Object.assign({ ...this.___jsontypes___ }, this.___jsonprops___), value)
         : Object.assign({ ...(this.___jsonprops___ || {}) }, value);
 
