@@ -25,14 +25,13 @@ export default {
     login() {
       (this as any).$gAuth
         .signIn()
-        .then(GoogleUser => {
+        .then((GoogleUser: any) => {
           axios.post("http://localhost:3000/login", {
-            
                 id_token: GoogleUser.getAuthResponse().id_token
-              }).then(x => {
+              }).then((x: any) => {
                 backend.initUser(x.netid).then(response => {
                   backend.initUsersNames().then(response2 => {
-                    
+
 
                 //do the init stuff in here, grab the user id from the x object you get from logging in.
 
@@ -45,7 +44,7 @@ export default {
             (this as any).isSignIn = (this as any).$gAuth.isAuthorized;
           });
         })
-        .catch(error => {
+        .catch((error: Error) => {
           console.log(error);
           //on fail do something
         });
