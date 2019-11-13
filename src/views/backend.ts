@@ -1,4 +1,18 @@
 let data = {
+  months: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
   roles: [
     "Developer",
     "Designer",
@@ -158,10 +172,10 @@ let data = {
 };
 
 export function getProfileFormData(field: any) {
-  return (data as any) [field];
+  return (data as any)[field];
 }
 
-export function getEditsFromName(name:  any) {
+export function getEditsFromName(name: any) {
   data.members.forEach(function(member) {
     console.log(member);
     if (member.name === name) {
@@ -183,3 +197,60 @@ export function getEditsFromName(name:  any) {
 //  // @ts-ignore
 //   return list;
 // }
+import axios from "axios";
+let userInfoJSON: any = null;
+let userNames: any = [];
+
+const base = "http://localhost:3000/";
+
+const instance = axios.create({
+  baseURL: this.base,
+  timeout: 1000,
+  headers: {'X-Custom-Header': 'foobar'}
+});
+
+export function initUser(userID: any) {
+  return axios.get(`${base}member/${userID}`).then(response => {
+    userInfoJSON = response.data;
+  });
+}
+
+export function initUsersNames() {
+  return axios.get(`${base}members`).then(response => {
+    let allUserData = response.data;
+    allUserData.forEach(function(member: any) {
+      let user = {
+        name: member.name,
+        netid: member.netid
+      };
+      userNames.push(user);
+    });
+  });
+}
+
+export function getAllUsersNames() {
+  return userNames;
+}
+
+export function getUserInfo(field: any) {
+  return userInfoJSON[field];
+}
+
+export function getMonths() {
+  return data.months;
+}
+
+export function editable() {
+  axios.get(`${base}members/editable`).then(response => {
+    console.log("edit");
+    console.log(response);
+  })
+}
+
+export function postUpdate(userID: any, json: any) {
+  console.log(userID);
+  console.log(json);
+  axios.post(`${base}member`, json).then(response => {
+    console.log(response);
+  });
+}

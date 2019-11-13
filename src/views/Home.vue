@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <h1>Login</h1>
-    <button v-on:click="getAuth()">getAuth</button>
     <button v-on:click="login()">Login</button>
   </div>
 </template>
@@ -9,6 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import GAuth from "vue-google-oauth2";
+import axios from "axios";
 
 const gauthOption = {
   clientId:
@@ -17,11 +17,7 @@ const gauthOption = {
 
 Vue.use(GAuth, gauthOption);
 
-import VueResource from 'vue-resource'
-Vue.use(VueResource)
-
-Vue.http.options.emulateJSON = true
-const http=Vue.http
+import * as backend from "@/views/backend";
 
 //export default class Home extends Vue {}
 export default {
@@ -30,21 +26,24 @@ export default {
       (this as any).$gAuth
         .signIn()
         .then(GoogleUser => {
-          console.log("user", GoogleUser);
-          //console.log(GoogleUser.getId()); //: Get the user's unique ID string.
-          console.log(GoogleUser.getAuthResponse().id_token);
+          axios.post("http://localhost:3000/login", {
+            
+                id_token: GoogleUser.getAuthResponse().id_token
+              }).then(x => {
+                backend.initUser(x.netid).then(response => {
+                  backend.initUsersNames().then(response2 => {
+                    
 
-          // console.log(http);
-          // console.log(Vue.http);
-          // console.log(this.$http);
-          //  console.log((this as any).$http);
+                //do the init stuff in here, grab the user id from the x object you get from logging in.
 
-          return http.post("http://localhost:3000/login", {
-            id_token: GoogleUser.getAuthResponse().id_token,
+                  });
+
+
+              });
+
+
+            (this as any).isSignIn = (this as any).$gAuth.isAuthorized;
           });
-          // GoogleUser.getBasicProfile() : Get the user's basic profile information.
-          // GoogleUser.getAuthResponse() : Get the response object from the user's auth session. access_token and so on
-          (this as any).isSignIn = (this as any).$gAuth.isAuthorized;
         })
         .catch(error => {
           console.log(error);
@@ -54,3 +53,9 @@ export default {
   }
 };
 </script>
+<style scoped lang="scss">
+.home {
+  width: 100%;
+  margin: 4vh 10vw 4vh 10vw;
+}
+</style>

@@ -3,6 +3,7 @@ import * as HttpStatus from 'http-status-codes';
 import {TeamMembersDB} from './db'
 import { TeamMemberDocument } from '../models/team-member';
 import asyncify from '../lib/asyncify';
+import { Auth } from '../middleware/auth';
 
 export default function routes() {
     const router = express.Router();
@@ -35,6 +36,24 @@ export default function routes() {
         else if (formerSubteam) db.getAllContains('otherSubteams', formerSubteam).then(resolve).catch(reject);
         else if (role) db.getAllWith('role', role).then(resolve).catch(reject);
         else db.getAll().then(resolve).catch(reject);
+    });
+
+    router.get('/members/editable',
+    (req, res) => {
+        let db = new TeamMembersDB();
+        let resolve = (list : Array<TeamMemberDocument>) => {
+            res.status(HttpStatus.OK).json(list.map(member => member.netid));
+        };
+        let reject = (error) => {
+            res.status(HttpStatus.NOT_FOUND).json({ error });
+        };
+
+        if (req.session && req.session.user && req.session.user.isLead)
+            db.getAll().then(resolve).catch(reject);
+        else if (req.session && req.session.user)
+            db.getAllWith("netid", req.session.user.netid).then(resolve).catch(reject);
+        else
+            resolve([]);
     });
 
     return router;
